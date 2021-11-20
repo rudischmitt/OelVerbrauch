@@ -1,5 +1,5 @@
-# OelVerbrauch
-Bestimmt den Oelverbrauch und Kosten nach dem FIFO Prinzip
+# Ölverbrauch
+Bestimmt den Ölverbrauch und Kosten nach dem FIFO Prinzip
 
 Dies ist eine ganz einfache Anwendung, die uns hoffentlich (viel) Zeit erspart.
 
