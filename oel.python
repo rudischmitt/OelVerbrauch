@@ -1,0 +1,75 @@
+# -*- coding: utf-8 -*-
+
+def berechne_heizoel_kosten_und_restwert(anfangsbestand, kosten_pro_liter_anfang,
+                                         endbestand, gekaufte_ladungen):
+    # Gesamtverbrauch berechnen
+    gesamtkaufmenge = sum(ladung['menge'] for ladung in gekaufte_ladungen)
+    verbrauch = anfangsbestand + gesamtkaufmenge - endbestand
+    kosten_verbrauch = 0
+    restverbrauch = verbrauch
+    
+    # Berechnung der Kosten für den Anfangsbestand
+    if restverbrauch <= anfangsbestand:
+        kosten_verbrauch += restverbrauch * kosten_pro_liter_anfang
+        restverbrauch = 0
+    else:
+        kosten_verbrauch += anfangsbestand * kosten_pro_liter_anfang
+        restverbrauch -= anfangsbestand
+
+    # Berechnung der Kosten für die gekauften Ladungen
+    for ladung in gekaufte_ladungen:
+        if restverbrauch <= 0:
+            break
+        if restverbrauch <= ladung['menge']:
+            kosten_verbrauch += restverbrauch * ladung['preis_pro_liter']
+            restverbrauch = 0
+        else:
+            kosten_verbrauch += ladung['menge'] * ladung['preis_pro_liter']
+            restverbrauch -= ladung['menge']
+
+    # Berechnung des Wertes des Restbestands
+    restwert = 0
+    restendbestand = endbestand
+
+    for ladung in reversed(gekaufte_ladungen):
+        if restendbestand <= 0:
+            break
+        if restendbestand <= ladung['menge']:
+            restwert += restendbestand * ladung['preis_pro_liter']
+            restendbestand = 0
+        else:
+            restwert += ladung['menge'] * ladung['preis_pro_liter']
+            restendbestand -= ladung['menge']
+
+    # Wenn noch Restbestand aus dem Anfangsbestand übrig ist
+    if restendbestand > 0:
+        restwert += restendbestand * kosten_pro_liter_anfang
+
+    return verbrauch, round(kosten_verbrauch,2), round(restwert,2)
+
+# Beispielwerte
+anfangsbestand = 3600            # Liter
+wert_anfangsbestand = 3220.45    # Euro Gesamt des Anfansbestandes
+kosten_pro_liter_anfang = wert_anfangsbestand / anfangsbestand  # Euro pro Liter
+endbestand = 3400                # Liter
+gekaufte_ladungen = [
+    {'menge': 3555, 'preis_pro_liter': 1.081744523}
+]
+
+verbrauch, kosten, restwert = berechne_heizoel_kosten_und_restwert(anfangsbestand,
+                                                        kosten_pro_liter_anfang,
+                                                        endbestand,
+                                                        gekaufte_ladungen)
+
+
+#New format Python 3.5
+print(f"Der Oelverbrauch während der Heizperiode betraegt: {verbrauch} Liter")
+print(f"Die Kosten des Verbrauchs während der Heizperiode betragen: {kosten} Euro")
+print(f"Der Wert des Restbestands nach der Heizperiode beträgt: {restwert} Euro")
+
+#Old format
+#print("Die Kosten des Verbrauchs während der Heizperiode betragen: {} Euro".format(kosten))
+#print("Der Wert des Restbestands nach der Heizperiode beträgt: {} Euro".format(restwert))
+
+
+
