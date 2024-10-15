@@ -1,6 +1,8 @@
 # Ölverbrauch
 Bestimmt den Ölverbrauch und Kosten nach dem FIFO Prinzip
 
+Comming soon: Unterstützung für CO2 Abgaben Berechnung assoziert mit dem Ölverbrauch 
+
 Dies ist eine ganz einfache Anwendung, die uns hoffentlich (viel) Zeit erspart.
 
 Aus dem Anfangsbestand in Litern und dem Preis dieses Anfangsbestandes zusammen mit Zukauf in Litern, den Gesamtkosten des Zukaufs und dem Verbrauch in Litern, der durch Ablesung einmal jährlich ermittelt wird, berechnen wir den jährlichen Verbrauch, die Verbauchskosten und den Rest sowie die Restkosten. In der nächsten Heizperiode ist der Restbestand der Anfangsbestand und alles geht von vorne los.
